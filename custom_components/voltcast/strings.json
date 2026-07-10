@@ -1,0 +1,23 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Connect Voltcast",
+                "description": "Get a free API key at https://voltcast.com/dashboard",
+                "data": {
+                    "api_key": "API key",
+                    "zone": "Bidding zone (e.g. DE-LU)"
+                }
+            }
+        },
+        "error": {
+            "invalid_auth": "Invalid API key",
+            "unknown_zone": "Unknown bidding zone",
+            "zone_not_in_plan": "This zone is not included in your plan",
+            "cannot_connect": "Could not reach the Voltcast API"
+        },
+        "abort": {
+            "already_configured": "This zone is already configured"
+        }
+    }
+}

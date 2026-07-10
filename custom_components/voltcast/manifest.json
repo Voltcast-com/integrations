@@ -1,0 +1,12 @@
+{
+    "domain": "voltcast",
+    "name": "Voltcast",
+    "codeowners": ["@ossedk"],
+    "config_flow": true,
+    "documentation": "https://voltcast.com/docs",
+    "integration_type": "service",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/Voltcast-com/integrations/issues",
+    "requirements": [],
+    "version": "0.1.0"
+}

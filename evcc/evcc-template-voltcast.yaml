@@ -1,0 +1,33 @@
+# Prepared upstream template for evcc-io/evcc:
+# templates/definition/tariff/voltcast.yaml
+# Submit as PR at launch — mirrors the structure of the stekker/energyforecast templates.
+template: voltcast
+products:
+  - brand: Voltcast
+    description:
+      generic: 15-minute European day-ahead prices & forecasts
+requirements:
+  description:
+    en: Requires a Voltcast API key (free tier available) from https://voltcast.com/dashboard
+    de: Benötigt einen Voltcast API-Schlüssel (kostenloser Tarif verfügbar) von https://voltcast.com/dashboard
+group: price
+params:
+  - name: apikey
+    required: true
+    help:
+      en: API key from https://voltcast.com/dashboard
+  - name: zone
+    default: DE-LU
+    help:
+      en: Bidding zone code, see https://voltcast.com/api/v1/zones
+render: |
+  type: custom
+  forecast:
+    source: http
+    uri: https://voltcast.com/api/v1/forecasts/{{ .zone }}?horizon=48h
+    headers:
+      - Authorization: Bearer {{ .apikey }}
+    jq: |
+      [ .data[] | { start: .target_start,
+                    end: (.target_start | fromdate + 900 | todate),
+                    value: (.p50 / 1000) } ]
