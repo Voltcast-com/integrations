@@ -1,0 +1,35 @@
+report_flexibility:
+  name: Report flexibility action
+  description: >-
+    Opt-in: contribute an anonymized flexibility action (planned charging or
+    load shift) to Voltcast's aggregate dataset. No PII is sent — only zone,
+    device type, the planned window, energy, and the trigger. Aggregates are
+    only published above a 25-reporter k-anonymity floor.
+  fields:
+    device_type:
+      name: Device type
+      selector:
+        select:
+          options: [ev, battery, heatpump, appliance, other]
+    planned_start:
+      name: Planned start
+      required: true
+      selector:
+        datetime:
+    planned_end:
+      name: Planned end
+      required: true
+      selector:
+        datetime:
+    energy_kwh:
+      name: Energy (kWh)
+      selector:
+        number:
+          min: 0
+          max: 100000
+          mode: box
+    trigger_type:
+      name: Trigger
+      selector:
+        select:
+          options: [cheapest_window, price_threshold, schedule, manual]
