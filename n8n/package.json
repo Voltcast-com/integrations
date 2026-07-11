@@ -1,0 +1,25 @@
+{
+  "name": "n8n-nodes-voltcast",
+  "version": "0.1.0",
+  "description": "n8n community node for Voltcast — European electricity prices, forecasts, carbon intensity and optimization",
+  "keywords": ["n8n-community-node-package", "energy", "electricity", "prices", "entso-e", "voltcast"],
+  "license": "MIT",
+  "homepage": "https://voltcast.com/docs",
+  "author": { "name": "Voltcast", "email": "hello@voltcast.com" },
+  "repository": { "type": "git", "url": "git+https://github.com/Voltcast-com/integrations.git", "directory": "n8n" },
+  "engines": { "node": ">=20" },
+  "files": ["dist"],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": ["dist/credentials/VoltcastApi.credentials.js"],
+    "nodes": ["dist/nodes/Voltcast/Voltcast.node.js"]
+  },
+  "scripts": {
+    "build": "tsc && mkdir -p dist/nodes/Voltcast && cp nodes/Voltcast/voltcast.svg dist/nodes/Voltcast/",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "n8n-workflow": "^1.70.0",
+    "typescript": "^5.5.0"
+  }
+}

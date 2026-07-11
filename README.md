@@ -7,6 +7,10 @@ day-ahead power prices and probabilistic forecasts, by API.
 |---|---|
 | [Home Assistant](./home-assistant) ([component code](./custom_components/voltcast)) | Current price, today min/max/mean and next-hour P50 sensors (HACS-compatible) |
 | [evcc](./evcc) | Dynamic grid tariff with 48h forecast for smart EV charging — works with stock evcc today |
+| [n8n](./n8n) | Community node `n8n-nodes-voltcast` — prices, forecasts, carbon, imbalance and cheapest-window in your workflows |
+
+**This repo is the home for all Voltcast integrations** — new ones (Grafana
+plugin, Zapier/Make, …) land here, not in the product monorepo.
 
 Get a free API key at [voltcast.com/dashboard](https://voltcast.com/dashboard) —
 the free tier includes DE-LU prices and a 48h P50 forecast, no card required.
