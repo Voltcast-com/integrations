@@ -1,0 +1,12 @@
+{
+    "domain": "voltcast",
+    "name": "Voltcast",
+    "codeowners": ["@ossedk"],
+    "config_flow": true,
+    "documentation": "https://www.home-assistant.io/integrations/voltcast",
+    "integration_type": "service",
+    "iot_class": "cloud_polling",
+    "loggers": ["aiovoltcast"],
+    "quality_scale": "bronze",
+    "requirements": ["aiovoltcast==0.1.0"]
+}
