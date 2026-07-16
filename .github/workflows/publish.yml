@@ -1,0 +1,55 @@
+# Publishes @voltcast/n8n-nodes-voltcast to npm WITH PROVENANCE.
+#
+# n8n's Creator Portal (verification) requires community nodes to be
+# published from GitHub Actions with an npm provenance statement — direct
+# local publishes are rejected ("Submission blocked: this package version
+# was not published with provenance").
+#
+# One-time npmjs.com setup (Option A, OIDC Trusted Publishing — no secrets):
+#   package settings for @voltcast/n8n-nodes-voltcast
+#   → Publish access → Trusted Publishers → Add a publisher → GitHub Actions:
+#       Repository owner: Voltcast-com
+#       Repository name:  integrations
+#       Workflow name:    publish.yml
+#
+# Release: push a tag like n8n-v0.1.1 (the n8n- prefix scopes tags in this
+# monorepo), or run the workflow manually after tagging.
+
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'n8n-v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Publish n8n node to npm (provenance)
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write # OIDC token for the npm provenance attestation
+      contents: read
+
+    defaults:
+      run:
+        working-directory: n8n
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish with provenance
+        run: npm publish --provenance --access public
