@@ -1,6 +1,6 @@
 {
   "name": "@voltcast/n8n-nodes-voltcast",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for Voltcast \u2014 European electricity prices, forecasts, carbon intensity and optimization",
   "keywords": [
     "n8n-community-node-package",
@@ -43,5 +43,8 @@
   "devDependencies": {
     "n8n-workflow": "^1.70.0",
     "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
   }
 }
