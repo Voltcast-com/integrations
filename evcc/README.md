@@ -1,12 +1,23 @@
-# Voltcast — evcc tariff integration
+# Voltcast tariff for evcc
 
-[evcc](https://evcc.io) can consume Voltcast as a dynamic **grid tariff with forecast**
-today via its built-in `custom` tariff type — no evcc code changes needed. A native
-`template: voltcast` upstream PR is prepared separately (see below).
+[evcc](https://evcc.io) includes the Voltcast tariff template upstream after
+[evcc-io/evcc#31848](https://github.com/evcc-io/evcc/pull/31848) merged. Use
+the built-in template where available; the custom recipe below remains a
+transparent fallback.
 
-## Working recipe (evcc ≥ 0.200)
+## Built-in template
 
-Add to your `evcc.yaml` (key from [voltcast.com/dashboard](https://voltcast.com/dashboard)):
+Follow the fields exposed by your installed evcc version for
+`template: voltcast`. Use the same bidding-zone code that you selected on your
+Voltcast Home account and provide the API key from the dashboard.
+
+The current end-to-end guide, with source attribution and a safe notification-first
+rollout, is at
+[voltcast.com/integrations/evcc](https://voltcast.com/integrations/evcc?utm_source=github&utm_medium=integration-repository&utm_campaign=evcc).
+
+## Custom fallback (evcc ≥ 0.200)
+
+Add to `evcc.yaml`:
 
 ```yaml
 tariffs:
@@ -37,6 +48,6 @@ automatically. The same pattern works for `tariffs: feedin`.
 
 ## Upstream template PR
 
-The prepared Go template for `evcc-io/evcc` (`templates/definition/tariff/voltcast.yaml`)
-lives in this folder as `evcc-template-voltcast.yaml` — submit it upstream once the
-public launch happens so users get `type: template, template: voltcast` out of the box.
+The exact template merged upstream on 2026-07-16. `evcc-template-voltcast.yaml`
+is retained here as a versioned reference, but the evcc repository is
+authoritative for the current built-in fields.

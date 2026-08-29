@@ -18,8 +18,14 @@ Settings → Devices & Services → Add Integration → Voltcast.
 
 **Manual:** copy this repo's `custom_components/voltcast/` into your `config/custom_components/`.
 
-You'll need a free API key from [voltcast.com/dashboard](https://voltcast.com/dashboard)
-(the free tier covers DE-LU with a 48h P50 forecast).
+New accounts start with
+[Voltcast Home](https://voltcast.com/register?plan=home&utm_source=github&utm_medium=home-assistant-integration&utm_campaign=home-assistant&task=home-assistant):
+one selected European bidding zone, native-resolution prices, the 48h P50
+forecast, 90 days of history, and one webhook rule for €9/month after a
+7-day card-required trial. Existing Free accounts remain grandfathered.
+
+The maintained step-by-step guide is at
+[voltcast.com/integrations/home-assistant](https://voltcast.com/integrations/home-assistant?utm_source=github&utm_medium=home-assistant-integration&utm_campaign=home-assistant).
 
 ## Example automation
 
@@ -31,6 +37,11 @@ automation:
         entity_id: sensor.de_lu_current_price
         below: 20
     action:
-      - service: switch.turn_on
-        target: { entity_id: switch.ev_charger }
+      - service: notify.notify
+        data:
+          message: "Voltcast price is below 20 EUR/MWh"
 ```
+
+Start notification-only and inspect the source timestamps and interval
+resolution. Add physical-control actions only after applying your device's own
+safety limits and testing the automation.
