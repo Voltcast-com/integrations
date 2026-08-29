@@ -3,7 +3,7 @@
         "step": {
             "user": {
                 "title": "Connect Voltcast",
-                "description": "Get a free API key at https://voltcast.com/dashboard",
+                "description": "Enter the API key from your Voltcast dashboard.",
                 "data": {
                     "api_key": "API key",
                     "zone": "Bidding zone (e.g. DE-LU)"
