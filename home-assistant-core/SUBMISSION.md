@@ -7,7 +7,10 @@ ready so the clock starts NOW.
 
 ## What's in this folder
 
-- `voltcast/` — the integration, written to core standards (2026):
+- `voltcast/` — the integration, written to core standards (2026).
+  `manifest.core.json` is intentionally non-discoverable so HACS sees only the
+  released custom component; rename it to `manifest.json` when copying this
+  proposal into a Home Assistant Core checkout:
   - config flow with live key/zone validation + typed error mapping
   - `DataUpdateCoordinator` via `entry.runtime_data` (modern pattern)
   - library-based I/O: [`aiovoltcast`](https://github.com/Voltcast-com/sdk/tree/main/python-async)
@@ -23,7 +26,8 @@ ready so the clock starts NOW.
    (Use the same PyPI account as `voltcast`; add a Trusted Publisher later.)
 2. **Fork + branch**: fork `home-assistant/core`, create `voltcast` branch,
    copy `voltcast/` to `homeassistant/components/voltcast/` and `tests/` to
-   `tests/components/voltcast/`.
+   `tests/components/voltcast/`, then rename the copied `manifest.core.json`
+   to `manifest.json`.
 3. **Scaffold the boring parts** inside the core checkout:
    `python -m script.scaffold config_flow` artifacts we already have; then run
    `python -m script.hassfest` and `pytest tests/components/voltcast` until green.
