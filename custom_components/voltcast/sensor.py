@@ -147,6 +147,11 @@ class NextRecommendedWindowSensor(VoltcastSensor):
         window = recommended_window(self.coordinator.data)
         if window is None:
             return {}
+        carbon_meta = (
+            self.coordinator.data.get("optimization", {})
+            .get("meta", {})
+            .get("carbon_estimate", {})
+        )
 
         return {
             "end": window.get("end"),
@@ -156,6 +161,13 @@ class NextRecommendedWindowSensor(VoltcastSensor):
             "avg_all_in_eur_kwh": window.get("avg_all_in_eur_kwh"),
             "estimated_carbon_gco2eq_kwh": window.get(
                 "estimated_carbon_gco2eq_kwh"
+            ),
+            "carbon_profile_status": carbon_meta.get("status"),
+            "is_forward_carbon_forecast": carbon_meta.get(
+                "is_forward_carbon_forecast"
+            ),
+            "supports_emissions_reduction_claim": carbon_meta.get(
+                "supports_emissions_reduction_claim"
             ),
             "basis": window.get("basis"),
             "derived_from_coarser_period": window.get(

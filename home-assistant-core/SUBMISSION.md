@@ -19,6 +19,16 @@ ready so the clock starts NOW.
   - `quality_scale: bronze` target for first submission
 - `tests/` — config-flow tests in core test style
 
+## HACS v0.3 parity boundary
+
+This Core proposal still contains the original passive price/forecast sensors;
+it does **not** yet contain the HACS v0.3 action entities or objective/tariff
+options. Do not claim feature parity in a Core PR. Mirror them only after an
+`aiovoltcast` release containing `negative_risk()` and `cheapest_window()` is
+published, then add coordinator, entity, boundary-timer, options-flow and error
+tests in a real Home Assistant Core checkout. Carbon/balanced must retain the
+experimental historical-profile/no-emissions-claim labels.
+
 ## Operator steps (in order)
 
 1. **Publish `aiovoltcast` to PyPI** (one command, kit in the sdk repo):

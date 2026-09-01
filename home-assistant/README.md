@@ -10,8 +10,8 @@ sensors, straight from the [Voltcast API](https://voltcast.com/docs).
 - `sensor.<zone>_forecast_p50_next_hour` — with the full 48h curve as an attribute
   (perfect for template-driven automations and ApexCharts cards)
 - `sensor.<zone>_next_recommended_window` — timestamp of the best upcoming
-  cost, carbon-profile, or balanced window, with its end, bill estimate, and
-  estimated carbon intensity as attributes
+  cost window, with its end and user-entered bill context as attributes;
+  experimental historical-profile modes also expose their estimate and status
 - `binary_sensor.<zone>_charge_now` — on only while that recommended window is active
 - `binary_sensor.<zone>_negative_price_incoming` — on when the modeled
   probability of a negative price reaches 50% in the next 24 hours
@@ -35,15 +35,18 @@ without the Home action upgrade.
 During setup—or later under Settings → Devices & Services → Voltcast →
 Configure—choose the action-window duration and objective:
 
-- **Cost:** lowest user-adjusted import price.
-- **Carbon:** lowest trailing observed local-time carbon profile.
-- **Balanced:** equal-weight normalized cost and estimated carbon.
+- **Cost:** lowest user-adjusted import price (production default).
+- **Carbon:** experimental trailing historical local-time production-profile
+  heuristic—not a forward carbon forecast.
+- **Balanced:** experimental equal-weight cost + historical-profile heuristic.
 
 You can enter variable grid fee, supplier markup, and VAT from your bill.
 These values stay in Home Assistant and are sent only with each optimization
-request. Fixed monthly charges, export remuneration, and tiered taxes are not
-modeled. The carbon value is explicitly a trailing generation profile, not a
-weather-conditioned carbon forecast or flow-traced consumption intensity.
+request. Fixed monthly charges, export remuneration, time-varying network
+charges, and tiered taxes are not modeled. Flat adders do not change interval
+ranking. The optional carbon value is not a weather-conditioned forecast,
+flow-traced consumption intensity, marginal-emissions estimate, or evidence
+that a schedule reduces emissions.
 
 The maintained step-by-step guide is at
 [voltcast.com/integrations/home-assistant](https://voltcast.com/integrations/home-assistant?utm_source=github&utm_medium=home-assistant-integration&utm_campaign=home-assistant).

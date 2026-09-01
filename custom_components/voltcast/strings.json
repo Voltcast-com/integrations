@@ -29,7 +29,7 @@
         "step": {
             "init": {
                 "title": "Home action settings",
-                "description": "Choose how Voltcast ranks your action window. Tariff values stay in Home Assistant and are sent only with optimization requests.",
+                "description": "Cost is the default production objective. Carbon and balanced are experimental trailing historical production-profile heuristics—not forward carbon forecasts or evidence of emissions savings. Tariff values stay in Home Assistant and are sent only with optimization requests.",
                 "data": {
                     "duration_minutes": "Recommended window duration (minutes)",
                     "objective": "Optimization objective",
