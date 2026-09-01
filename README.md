@@ -5,7 +5,7 @@ European day-ahead power prices and measured forecasts, by API.
 
 | Integration | What you get |
 |---|---|
-| [Home Assistant](./home-assistant) ([component code](./custom_components/voltcast)) | Current price, today min/max/mean and next-hour P50 sensors (HACS-compatible) |
+| [Home Assistant](./home-assistant) ([component code](./custom_components/voltcast)) | Prices and P50 plus next recommended window, `charge_now`, and negative-price-risk action entities (HACS-compatible) |
 | [evcc](./evcc) | Merged upstream tariff template with a 48h forecast for smart EV charging |
 | [n8n](./n8n) | Verified community node plus three Home-compatible workflow templates |
 
@@ -15,7 +15,9 @@ plugin, Zapier/Make, …) land here, not in the product monorepo.
 New accounts start with [Home](https://voltcast.com/register?plan=home&utm_source=github&utm_medium=integration-repository&utm_campaign=home-integrations)
 at €9/month after a 7-day card-required trial. Home includes one selected
 European bidding zone, day-ahead prices, the P50 forecast, 90 days of history,
-and one webhook rule. Existing Free accounts remain grandfathered.
+14-day negative-price risk, tariff-aware optimization, unlimited webhooks,
+SSE, and the Home Assistant action entities. Existing Free accounts remain
+grandfathered without the Home upgrade.
 
 SDKs (Python / TypeScript) live at [Voltcast-com/sdk](https://github.com/Voltcast-com/sdk).
 API reference: [voltcast.com/docs](https://voltcast.com/docs) ·

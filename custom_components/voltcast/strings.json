@@ -6,7 +6,12 @@
                 "description": "Enter the API key from your Voltcast dashboard.",
                 "data": {
                     "api_key": "API key",
-                    "zone": "Bidding zone (e.g. DE-LU)"
+                    "zone": "Bidding zone (e.g. DE-LU)",
+                    "duration_minutes": "Recommended window duration (minutes)",
+                    "objective": "Optimization objective",
+                    "grid_fee_eur_kwh": "Variable grid fee (EUR/kWh)",
+                    "supplier_markup_eur_kwh": "Supplier markup (EUR/kWh)",
+                    "vat_percent": "VAT (%)"
                 }
             }
         },
@@ -18,6 +23,21 @@
         },
         "abort": {
             "already_configured": "This zone is already configured"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Home action settings",
+                "description": "Choose how Voltcast ranks your action window. Tariff values stay in Home Assistant and are sent only with optimization requests.",
+                "data": {
+                    "duration_minutes": "Recommended window duration (minutes)",
+                    "objective": "Optimization objective",
+                    "grid_fee_eur_kwh": "Variable grid fee (EUR/kWh)",
+                    "supplier_markup_eur_kwh": "Supplier markup (EUR/kWh)",
+                    "vat_percent": "VAT (%)"
+                }
+            }
         }
     }
 }

@@ -9,6 +9,12 @@ sensors, straight from the [Voltcast API](https://voltcast.com/docs).
 - `sensor.<zone>_today_min` / `_today_max` / `_today_mean`
 - `sensor.<zone>_forecast_p50_next_hour` — with the full 48h curve as an attribute
   (perfect for template-driven automations and ApexCharts cards)
+- `sensor.<zone>_next_recommended_window` — timestamp of the best upcoming
+  cost, carbon-profile, or balanced window, with its end, bill estimate, and
+  estimated carbon intensity as attributes
+- `binary_sensor.<zone>_charge_now` — on only while that recommended window is active
+- `binary_sensor.<zone>_negative_price_incoming` — on when the modeled
+  probability of a negative price reaches 50% in the next 24 hours
 
 ## Install
 
@@ -20,9 +26,24 @@ Settings → Devices & Services → Add Integration → Voltcast.
 
 New accounts start with
 [Voltcast Home](https://voltcast.com/register?plan=home&utm_source=github&utm_medium=home-assistant-integration&utm_campaign=home-assistant&task=home-assistant):
-one selected European bidding zone, native-resolution prices, the 48h P50
-forecast, 90 days of history, and one webhook rule for €9/month after a
-7-day card-required trial. Existing Free accounts remain grandfathered.
+one selected European bidding zone, native-resolution prices, the P50
+forecast, 90 days of history, 14-day negative-price risk, tariff-aware
+optimization, unlimited webhooks, SSE, and these action entities for €9/month
+after a 7-day card-required trial. Existing Free accounts remain grandfathered
+without the Home action upgrade.
+
+During setup—or later under Settings → Devices & Services → Voltcast →
+Configure—choose the action-window duration and objective:
+
+- **Cost:** lowest user-adjusted import price.
+- **Carbon:** lowest trailing observed local-time carbon profile.
+- **Balanced:** equal-weight normalized cost and estimated carbon.
+
+You can enter variable grid fee, supplier markup, and VAT from your bill.
+These values stay in Home Assistant and are sent only with each optimization
+request. Fixed monthly charges, export remuneration, and tiered taxes are not
+modeled. The carbon value is explicitly a trailing generation profile, not a
+weather-conditioned carbon forecast or flow-traced consumption intensity.
 
 The maintained step-by-step guide is at
 [voltcast.com/integrations/home-assistant](https://voltcast.com/integrations/home-assistant?utm_source=github&utm_medium=home-assistant-integration&utm_campaign=home-assistant).
@@ -31,17 +52,21 @@ The maintained step-by-step guide is at
 
 ```yaml
 automation:
-  - alias: "Charge when power is cheap"
+  - alias: "Notify when Voltcast says charge"
     trigger:
-      - platform: numeric_state
-        entity_id: sensor.de_lu_current_price
-        below: 20
+      - platform: state
+        entity_id: binary_sensor.de_lu_charge_now
+        to: "on"
     action:
       - service: notify.notify
         data:
-          message: "Voltcast price is below 20 EUR/MWh"
+          message: >
+            Recommended charging window started.
+            It ends at
+            {{ state_attr('binary_sensor.de_lu_charge_now', 'window_end') }}.
 ```
 
-Start notification-only and inspect the source timestamps and interval
-resolution. Add physical-control actions only after applying your device's own
-safety limits and testing the automation.
+Start notification-only and inspect the timestamps, objective, bill inputs,
+source basis, and interval-resolution attributes. Add physical-control actions
+only after applying your device's own SoC, temperature, current, charger, and
+manufacturer safety limits and testing the automation.
